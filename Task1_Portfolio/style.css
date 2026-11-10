@@ -1,0 +1,21 @@
+:root {
+  --navy-dark: #071428;   /* page background */
+  --navy: #0b1d3a;        /* cards and navbar */
+  --teal: #14b8a6;        /* buttons, links, highlights */
+  --text: #e6f1ff;        /* main text */
+  --muted: #8fa3bf;       /* secondary text */
+}
+
+body {
+  background-color: var(--navy-dark);
+  color: var(--text);
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+a { color: var(--teal); }
+.site-nav {
+  background-color: var(--navy);
+  border-bottom: 1px solid rgba(20, 184, 166, 0.2);
+}
+.accent { color: var(--teal); }
+.site-nav .nav-link:hover { color: var(--teal); }
