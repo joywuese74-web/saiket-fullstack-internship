@@ -81,3 +81,40 @@ a { color: var(--teal); }
   margin: 4px;
   font-size: 0.9rem;
 }
+.project-card {
+  background-color: var(--navy);
+  border: 1px solid rgba(20, 184, 166, 0.2);
+  border-radius: 12px;
+  overflow: hidden;              /* keeps the thumbnail inside the rounded corners */
+  transition: transform 0.3s, border-color 0.3s;
+}
+.project-card:hover {
+  transform: translateY(-6px);   /* lifts the card on hover */
+  border-color: var(--teal);
+}
+.project-card h3 { color: var(--text); }
+
+.project-thumb {
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--navy-dark), #0f3b4f);
+  color: var(--teal);
+  font-family: monospace;
+  font-size: 1.3rem;
+}
+
+.project-card .card-footer {
+  background: transparent;
+  border-top: none;
+  padding: 0 16px 20px;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-family: monospace;
+  color: var(--teal);
+  margin-right: 10px;
+}
