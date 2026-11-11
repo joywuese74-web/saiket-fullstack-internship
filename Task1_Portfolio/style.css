@@ -19,3 +19,36 @@ a { color: var(--teal); }
 }
 .accent { color: var(--teal); }
 .site-nav .nav-link:hover { color: var(--teal); }
+
+.hero {
+  min-height: 90vh;           /* almost a full screen tall */
+  display: flex;
+  align-items: center;        /* centres content vertically */
+  padding: 60px 0;
+}
+.hero-label { color: var(--teal); font-family: monospace; }
+.hero-name  { font-size: 3rem; font-weight: 700; }
+.hero-role  { font-size: 1.5rem; color: var(--muted); margin-bottom: 20px; }
+.hero-text  { color: var(--muted); max-width: 520px; margin-bottom: 30px; }
+
+.hero-photo {
+  width: 280px;
+  height: 280px;
+  object-fit: cover;          /* crops instead of squashing the photo */
+  border-radius: 50%;         /* makes it a circle */
+  border: 4px solid var(--teal);
+}
+
+/* Our own teal buttons */
+.btn-teal {
+  background-color: var(--teal);
+  color: var(--navy-dark);
+  font-weight: 600;
+}
+.btn-teal:hover { background-color: #0d9488; color: var(--navy-dark); }
+
+.btn-outline-teal {
+  border: 2px solid var(--teal);
+  color: var(--teal);
+}
+.btn-outline-teal:hover { background-color: var(--teal); color: var(--navy-dark); }
