@@ -118,3 +118,25 @@ a { color: var(--teal); }
   color: var(--teal);
   margin-right: 10px;
 }
+
+.form-label { color: var(--text); }
+
+.form-control {
+  background-color: var(--navy-dark);
+  border: 1px solid rgba(20, 184, 166, 0.3);
+  color: var(--text);
+}
+.form-control:focus {
+  background-color: var(--navy-dark);
+  color: var(--text);
+  border-color: var(--teal);
+  box-shadow: 0 0 0 0.2rem rgba(20, 184, 166, 0.25);
+}
+
+.footer {
+  text-align: center;
+  padding: 30px 0;
+  border-top: 1px solid rgba(20, 184, 166, 0.2);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
