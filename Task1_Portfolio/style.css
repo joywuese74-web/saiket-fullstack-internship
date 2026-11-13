@@ -58,6 +58,7 @@ a { color: var(--teal); }
   box-shadow: 0 0 40px rgba(20, 184, 166, 0.35);
 }
 
+/* Phones */
 @media (max-width: 576px) {
   .hero-photo {
     width: 280px;
@@ -66,7 +67,7 @@ a { color: var(--teal); }
   }
 }
 
-/* Large laptops and desktops (1200px and wider) */
+/* Large laptops and desktops */
 @media (min-width: 1200px) {
   .hero-photo {
     width: 430px;
@@ -75,7 +76,7 @@ a { color: var(--teal); }
   }
 }
 
-/* Very large screens (1400px and wider) */
+/* Very large screens */
 @media (min-width: 1400px) {
   .hero-photo {
     width: 480px;
@@ -95,6 +96,19 @@ a { color: var(--teal); }
 .social-links a:hover {
   color: var(--teal);
   transform: translateY(-3px);
+}
+
+/* Skills under the social icons */
+.hero-skills { max-width: 520px; }
+.hero-skills-label {
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+@media (max-width: 991px) {
+  .hero-skills { margin-left: auto; margin-right: auto; }   /* centred on phones and tablets */
 }
 
 /* ---------- Buttons ---------- */
@@ -119,18 +133,44 @@ a { color: var(--teal); }
   font-weight: 700;
   margin-bottom: 40px;
 }
+.section-title::after {          /* short teal line under each title */
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: var(--teal);
+  margin-top: 12px;
+}
 .section p {
   color: var(--muted);
   line-height: 1.8;
 }
 
 /* ---------- About ---------- */
+.about-text h3 {
+  font-size: 1.3rem;
+  color: var(--text);
+  margin-top: 28px;
+  margin-bottom: 10px;
+}
+.about-text h3:first-child { margin-top: 0; }
+.about-text strong { color: var(--text); font-weight: 500; }
+.about-closing {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.25rem;
+  font-style: italic;
+  color: var(--teal) !important;
+  margin-top: 28px;
+}
+
 .info-card {
   background-color: var(--navy);
   border: 1px solid rgba(20, 184, 166, 0.2);
   border-radius: 12px;
   padding: 24px;
 }
+.info-card strong { color: var(--text); font-weight: 500; }
+
 .skill {
   display: inline-block;
   background-color: rgba(20, 184, 166, 0.1);
@@ -147,7 +187,7 @@ a { color: var(--teal); }
   background-color: var(--navy);
   border: 1px solid rgba(20, 184, 166, 0.2);
   border-radius: 12px;
-  overflow: hidden;              /* keeps the thumbnail inside the rounded corners */
+  overflow: hidden;              /* keeps the image inside the rounded corners */
   transition: transform 0.3s, border-color 0.3s;
 }
 .project-card:hover {
@@ -155,17 +195,6 @@ a { color: var(--teal); }
   border-color: var(--teal);
 }
 .project-card h3 { color: var(--text); }
-
-.project-thumb {
-  height: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, var(--navy-dark), #0f3b4f);
-  color: var(--teal);
-  font-family: monospace;
-  font-size: 1.3rem;
-}
 
 .project-img {
   width: 100%;
@@ -188,7 +217,23 @@ a { color: var(--teal); }
   margin-right: 10px;
 }
 
-/* ---------- Contact form ---------- */
+/* ---------- Contact ---------- */
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0;
+}
+.contact-list li {
+  margin-bottom: 14px;
+  color: var(--muted);
+}
+.contact-list i {
+  color: var(--teal);
+  margin-right: 10px;
+}
+.contact-list a { text-decoration: none; }
+.contact-list a:hover { text-decoration: underline; }
+
 .form-label { color: var(--text); }
 
 .form-control {

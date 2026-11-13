@@ -1,3 +1,5 @@
+// ===== Contact form validation (only runs on contact.html) =====
+
 // 1. Grab the form and its fields
 const form = document.getElementById("contactForm");
 const nameInput = document.getElementById("name");
@@ -24,60 +26,58 @@ function isValidEmail(email) {
 }
 
 // 4. Run the checks when the form is submitted
-if (form){
-form.addEventListener("submit", function (event) {
-  event.preventDefault(); // stop the page from reloading
+//    (the "if" stops errors on pages that have no form)
+if (form) {
+  form.addEventListener("submit", function (event) {
+    event.preventDefault(); // stop the page from reloading
 
-  let isValid = true;
-  const name = nameInput.value.trim();
-  const email = emailInput.value.trim();
-  const message = messageInput.value.trim();
+    let isValid = true;
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    const message = messageInput.value.trim();
 
+    // Name check
+    if (name === "") {
+      showError(nameInput, "nameError", "Please enter your name.");
+      isValid = false;
+    } else if (name.length < 2) {
+      showError(nameInput, "nameError", "Name must be at least 2 characters.");
+      isValid = false;
+    } else {
+      showSuccess(nameInput);
+    }
 
+    // Email check
+    if (email === "") {
+      showError(emailInput, "emailError", "Please enter your email.");
+      isValid = false;
+    } else if (!isValidEmail(email)) {
+      showError(emailInput, "emailError", "Please enter a valid email address.");
+      isValid = false;
+    } else {
+      showSuccess(emailInput);
+    }
 
-  // Name check
-  if (name === "") {
-    showError(nameInput, "nameError", "Please enter your name.");
-    isValid = false;
-  } else if (name.length < 2) {
-    showError(nameInput, "nameError", "Name must be at least 2 characters.");
-    isValid = false;
-  } else {
-    showSuccess(nameInput);
-  }
+    // Message check
+    if (message.length < 10) {
+      showError(messageInput, "messageError", "Message must be at least 10 characters.");
+      isValid = false;
+    } else {
+      showSuccess(messageInput);
+    }
 
-  // Email check
-  if (email === "") {
-    showError(emailInput, "emailError", "Please enter your email.");
-    isValid = false;
-  } else if (!isValidEmail(email)) {
-    showError(emailInput, "emailError", "Please enter a valid email address.");
-    isValid = false;
-  } else {
-    showSuccess(emailInput);
-  }
-
-  // Message check
-  if (message.length < 10) {
-    showError(messageInput, "messageError", "Message must be at least 10 characters.");
-    isValid = false;
-  } else {
-    showSuccess(messageInput);
-  }
-
-  // 5. If everything passed, show success and clear the form
-  if (isValid) {
-    successMsg.classList.remove("d-none");
-    form.reset();
-    [nameInput, emailInput, messageInput].forEach(function (input) {
-      input.classList.remove("is-valid");
-    });
-    setTimeout(function () {
+    // 5. If everything passed, show success and clear the form
+    if (isValid) {
+      successMsg.classList.remove("d-none");
+      form.reset();
+      [nameInput, emailInput, messageInput].forEach(function (input) {
+        input.classList.remove("is-valid");
+      });
+      setTimeout(function () {
+        successMsg.classList.add("d-none");
+      }, 4000); // hide the message after 4 seconds
+    } else {
       successMsg.classList.add("d-none");
-    }, 4000); // hide the message after 4 seconds
-  } else {
-    successMsg.classList.add("d-none");
-  }
-});
+    }
+  });
 }
-

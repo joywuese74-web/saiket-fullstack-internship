@@ -3,78 +3,90 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Projects</title>
+  <title>Projects | Ayande Wuese Joy</title>
   <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="d-flex flex-column min-vh-100"></body>
+
+<body class="d-flex flex-column min-vh-100">
 
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top site-nav">
   <div class="container">
-    <a class="navbar-brand" href="projects.html">Ayande Wuese Joy<span class="accent">.</span></a>
+    <a class="navbar-brand" href="index.html">Ayande Wuese Joy<span class="accent">.</span></a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainMenu">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainMenu" aria-label="Open menu">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="mainMenu">
       <ul class="navbar-nav ms-auto">
-  <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-  <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-  <li class="nav-item"><a class="nav-link active" href="projects.html">Projects</a></li>
-  <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-</ul>
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link active" href="projects.html">Projects</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+      </ul>
     </div>
   </div>
 </nav>
 
-
 <section id="projects" class="section">
   <div class="container">
-    <h2 class="section-title"><span class="accent"></span> Projects</h2>
+    <h2 class="section-title">Projects</h2>
 
     <div class="row g-4">
 
+      <!-- Project 1: L'AURA -->
       <div class="col-md-6 col-lg-4">
         <div class="card project-card h-100">
           <img src="images/laura.jpg" alt="Screenshot of the L'AURA website" class="project-img">
           <div class="card-body">
             <h3 class="h5">L'AURA</h3>
-            <p>A full-stack wellness salon booking platform connecting customers with beauty and wellness service providers — with location-based matching, real-time payments, and automated email notifications.</p>
-            <span class="tag">HTML</span><span class="tag">python</span><span class="tag">JavaScript</span>
+            <p>A full-stack wellness salon booking platform connecting customers with beauty and wellness service providers, with location-based matching, real-time payments, and automated email notifications.</p>
+            <span class="tag">React</span><span class="tag">Python</span><span class="tag">JavaScript</span>
           </div>
           <div class="card-footer">
-            <a href="#" class="btn btn-sm btn-outline-teal">View Project</a>
+            <a href="https://joywuese74-web.github.io/The-L-aura/" target="_blank" class="btn btn-sm btn-teal me-2">
+              <i class="bi bi-box-arrow-up-right"></i> Live Demo
+            </a>
+            <a href="https://github.com/joywuese74-web/The-L-aura" target="_blank" class="btn btn-sm btn-outline-teal">
+              <i class="bi bi-github"></i> GitHub
+            </a>
           </div>
         </div>
       </div>
 
+      <!-- Project 2: Talent Nation Project Hub -->
       <div class="col-md-6 col-lg-4">
         <div class="card project-card h-100">
-          <img src="images/TalentNation.png" alt="Screenshot of the TalentNation website" class="project-img">
-          <div class="project-thumb">Talent Nation Project Hub</div>
+          <img src="images/TalentNation.png" alt="Screenshot of the Talent Nation Project Hub" class="project-img">
           <div class="card-body">
             <h3 class="h5">Talent Nation Project Hub</h3>
-            <p>contains all talent nation projects</p>
-            <span class="tag">Python</span><span class="tag">Web</span><span class="tag">JavaScript</span><span class="tag">css</span>
+            <p>A home for projects built by Talent Nation fellows. Fellows submit their work, campus mentors review and approve it, and approved projects are showcased publicly by campus, category and fellow.</p>
+            <span class="tag">React</span><span class="tag">JavaScript</span><span class="tag">SQL</span><span class="tag">CSS</span>
           </div>
           <div class="card-footer">
-            <a href="#" class="btn btn-sm btn-outline-teal">View Project</a>
+            <a href="https://github.com/joywuese74-web/Talent-Nation-Project-Hub" target="_blank" class="btn btn-sm btn-outline-teal">
+              <i class="bi bi-github"></i> GitHub
+            </a>
           </div>
         </div>
       </div>
 
+      <!-- Project 3: ASCII Art Web -->
       <div class="col-md-6 col-lg-4">
         <div class="card project-card h-100">
-          <img src="images/AsciiArt.png" alt="Screenshot of the ASCII Art website" class="project-img">
-          <div class="project-thumb">ASCII Art Web</div>
+          <img src="images/AsciiArt.png" alt="Screenshot of the ASCII Art Web app" class="project-img">
           <div class="card-body">
-            <h3 class="h5">Next Project</h3>
-            <p>A simple web application that converts text into ASCII art, built in Go. This project extends the original ASCII Art CLI tool by wrapping it in an HTTP server with a browser-based interface.</p>
-            <span class="tag">Go</span><span class="tag">HTML</span>
+            <h3 class="h5">ASCII Art Web</h3>
+            <p>A simple web application that converts text into ASCII art, built in Go. It extends the original ASCII Art CLI tool by wrapping it in an HTTP server with a browser-based interface.</p>
+            <span class="tag">Go</span><span class="tag">HTML</span><span class="tag">CSS</span>
           </div>
           <div class="card-footer">
-            <a href="#" class="btn btn-sm btn-outline-teal">View Project</a>
+            <a href="https://github.com/joywuese74-web/ascii-art-web" target="_blank" class="btn btn-sm btn-outline-teal">
+              <i class="bi bi-github"></i> GitHub
+            </a>
           </div>
         </div>
       </div>
@@ -83,13 +95,11 @@
   </div>
 </section>
 
-
-
 <footer class="footer mt-auto">
   <p>&copy; 2026 Ayande Wuese Joy. Built with HTML, Bootstrap &amp; JavaScript.</p>
 </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="script.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
