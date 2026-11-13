@@ -66,6 +66,24 @@ a { color: var(--teal); }
   }
 }
 
+/* Large laptops and desktops (1200px and wider) */
+@media (min-width: 1200px) {
+  .hero-photo {
+    width: 430px;
+    height: 540px;
+    border-radius: 215px 215px 24px 24px;
+  }
+}
+
+/* Very large screens (1400px and wider) */
+@media (min-width: 1400px) {
+  .hero-photo {
+    width: 480px;
+    height: 600px;
+    border-radius: 240px 240px 26px 26px;
+  }
+}
+
 /* Social icons under the hero buttons */
 .social-links a {
   font-size: 1.4rem;
