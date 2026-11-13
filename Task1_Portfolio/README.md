@@ -13,7 +13,10 @@ A responsive, multi-page personal portfolio with a science & tech theme (navy an
 - Responsive layout for mobile, tablet and desktop using the Bootstrap 5 grid
 - Collapsible navbar menu on small screens
 - Hover effects on project cards and buttons
-- Bootstrap CSS and JS stored locally, so the site works without depending on a CDN
+- Light/dark theme toggle that remembers your choice across pages (localStorage)
+- Back-to-top button that appears after scrolling
+- Download CV button
+- Bootstrap CSS, JS and Bootstrap Icons stored locally, so the site works without depending on a CDN
 
 ## Built With
 HTML, CSS, Bootstrap 5, JavaScript, Bootstrap Icons, Google Fonts

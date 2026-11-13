@@ -81,3 +81,57 @@ if (form) {
     }
   });
 }
+
+
+// ===== Light/dark theme toggle (every page) =====
+const themeToggle = document.getElementById("themeToggle");
+const root = document.documentElement; // the <html> tag
+
+// Show a moon in light mode (click for dark) and a sun in dark mode (click for light)
+function updateThemeIcon() {
+  const isLight = root.getAttribute("data-theme") === "light";
+  themeToggle.innerHTML = isLight ? '<i class="bi bi-moon-stars"></i>' : '<i class="bi bi-sun"></i>';
+}
+
+if (themeToggle) {
+  updateThemeIcon();
+
+  themeToggle.addEventListener("click", function () {
+    const isLight = root.getAttribute("data-theme") === "light";
+
+    if (isLight) {
+      root.removeAttribute("data-theme");          // back to dark
+    } else {
+      root.setAttribute("data-theme", "light");    // switch to light
+    }
+
+    // Remember the choice so other pages (and the next visit) use it too
+    try {
+      localStorage.setItem("theme", isLight ? "dark" : "light");
+    } catch (e) {
+      // Some browsers block storage (e.g. private mode). The toggle still works for this page.
+    }
+
+    updateThemeIcon();
+  });
+}
+
+
+// ===== Back to top button (every page) =====
+const backToTop = document.getElementById("backToTop");
+
+if (backToTop) {
+  // Show the button only after scrolling down 300px
+  window.addEventListener("scroll", function () {
+    if (window.scrollY > 300) {
+      backToTop.classList.add("show");
+    } else {
+      backToTop.classList.remove("show");
+    }
+  });
+
+  // Smoothly scroll back to the top when clicked
+  backToTop.addEventListener("click", function () {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}

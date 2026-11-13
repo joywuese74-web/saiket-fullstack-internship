@@ -5,9 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ayande Wuese Joy | Portfolio</title>
   <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/bootstrap-icons.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <!-- Apply the saved theme before the page appears (prevents a flash of the wrong theme) -->
+  <script>
+    try {
+      if (localStorage.getItem("theme") === "light") {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    } catch (e) {}
+  </script>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -15,6 +23,11 @@
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top site-nav">
   <div class="container">
     <a class="navbar-brand" href="index.html">Ayande Wuese Joy<span class="accent">.</span></a>
+
+    <!-- Light/dark theme toggle -->
+    <button id="themeToggle" class="theme-toggle ms-auto ms-lg-3 order-lg-last" type="button" aria-label="Switch light/dark theme">
+      <i class="bi bi-sun"></i>
+    </button>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainMenu" aria-label="Open menu">
       <span class="navbar-toggler-icon"></span>
@@ -45,8 +58,13 @@
           user-focused applications through technology, creativity and continuous learning.
         </p>
 
-        <a href="projects.html" class="btn btn-teal me-2">View My Projects</a>
-        <a href="contact.html" class="btn btn-outline-teal">Contact Me</a>
+        <div class="hero-buttons">
+          <a href="projects.html" class="btn btn-teal">View My Projects</a>
+          <a href="contact.html" class="btn btn-outline-teal">Contact Me</a>
+          <a href="files/Ayande_Wuese_Joy_CV.pdf" download class="btn btn-outline-teal">
+            <i class="bi bi-download"></i> Download CV
+          </a>
+        </div>
 
         <div class="social-links mt-4">
           <a href="https://github.com/joywuese74-web" target="_blank" aria-label="GitHub"><i class="bi bi-github"></i></a>
@@ -82,6 +100,11 @@
 <footer class="footer mt-auto">
   <p>&copy; 2026 Ayande Wuese Joy. Built with HTML, Bootstrap &amp; JavaScript.</p>
 </footer>
+
+<!-- Back to top button (appears after scrolling down) -->
+<button id="backToTop" class="back-to-top" type="button" aria-label="Back to top">
+  <i class="bi bi-arrow-up"></i>
+</button>
 
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="script.js"></script>

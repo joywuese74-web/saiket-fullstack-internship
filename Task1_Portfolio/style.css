@@ -256,3 +256,88 @@ a { color: var(--teal); }
   color: var(--muted);
   font-size: 0.9rem;
 }
+
+/* =====================================================
+   EXTRA BUTTONS
+   ===================================================== */
+
+/* ---------- Hero buttons row (wraps nicely on phones) ---------- */
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+@media (max-width: 991px) {
+  .hero-buttons { justify-content: center; }
+}
+
+/* ---------- Theme toggle (sun/moon in the navbar) ---------- */
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(20, 184, 166, 0.4);
+  background: transparent;
+  color: var(--teal);
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s, transform 0.3s;
+}
+.theme-toggle:hover {
+  background-color: rgba(20, 184, 166, 0.15);
+  transform: rotate(20deg);
+}
+.navbar-toggler { margin-left: 10px; }
+
+/* ---------- Back to top button ---------- */
+.back-to-top {
+  position: fixed;              /* stays in the same spot while scrolling */
+  bottom: 24px;
+  right: 24px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--teal);
+  color: var(--navy-dark);
+  font-size: 1.2rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  opacity: 0;                   /* hidden until the user scrolls down */
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+  z-index: 1000;
+}
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.back-to-top:hover { background-color: #0d9488; }
+
+/* =====================================================
+   LIGHT THEME
+   When <html data-theme="light">, the colour variables
+   are swapped, so the whole site changes at once.
+   ===================================================== */
+[data-theme="light"] {
+  --navy-dark: #f4f7fb;   /* page background  */
+  --navy: #ffffff;        /* cards and navbar */
+  --teal: #0d9488;        /* slightly darker teal, easier to read on white */
+  --text: #0b1d3a;        /* main text  */
+  --muted: #4a5b72;       /* secondary text */
+}
+[data-theme="light"] .site-nav .navbar-brand,
+[data-theme="light"] .site-nav .nav-link { color: var(--text); }
+[data-theme="light"] .site-nav .nav-link:hover,
+[data-theme="light"] .site-nav .nav-link.active { color: var(--teal); }
+[data-theme="light"] .navbar-toggler { border-color: rgba(11, 29, 58, 0.2); }
+[data-theme="light"] .navbar-toggler-icon { filter: invert(1); }   /* dark ☰ icon */
+[data-theme="light"] .btn-teal,
+[data-theme="light"] .btn-teal:hover,
+[data-theme="light"] .btn-outline-teal:hover,
+[data-theme="light"] .back-to-top { color: #ffffff; }
+[data-theme="light"] .project-card,
+[data-theme="light"] .info-card { box-shadow: 0 4px 18px rgba(11, 29, 58, 0.06); }
