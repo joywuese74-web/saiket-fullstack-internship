@@ -32,13 +32,22 @@ a { color: var(--teal); }
 .hero-text  { color: var(--muted); max-width: 520px; margin-bottom: 30px; }
 
 .hero-photo {
-  width: 280px;
-  height: 280px;
-  object-fit: cover;          /* crops instead of squashing the photo */
-  border-radius: 50%;         /* makes it a circle */
-  border: 4px solid var(--teal);
+  width: 360px;
+  height: 450px;
+  max-width: 100%;
+  object-fit: cover;
+  border-radius: 180px 180px 20px 20px;   /* arch shape */
+  border: 5px solid var(--teal);
+  box-shadow: 0 0 40px rgba(20, 184, 166, 0.35);
 }
 
+@media (max-width: 576px) {
+  .hero-photo {
+    width: 500px;
+    height: 350px;
+    border-radius: 140px 140px 16px 16px;
+  }
+}
 /* Our own teal buttons */
 .btn-teal {
   background-color: var(--teal);
@@ -139,4 +148,9 @@ a { color: var(--teal); }
   border-top: 1px solid rgba(20, 184, 166, 0.2);
   color: var(--muted);
   font-size: 0.9rem;
+}
+
+.site-nav .nav-link.active {
+  color: var(--teal);
+  font-weight: 600;
 }

@@ -24,6 +24,7 @@ function isValidEmail(email) {
 }
 
 // 4. Run the checks when the form is submitted
+if (form){
 form.addEventListener("submit", function (event) {
   event.preventDefault(); // stop the page from reloading
 
@@ -31,6 +32,8 @@ form.addEventListener("submit", function (event) {
   const name = nameInput.value.trim();
   const email = emailInput.value.trim();
   const message = messageInput.value.trim();
+
+
 
   // Name check
   if (name === "") {
@@ -76,3 +79,5 @@ form.addEventListener("submit", function (event) {
     successMsg.classList.add("d-none");
   }
 });
+}
+
