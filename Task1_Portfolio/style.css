@@ -13,13 +13,20 @@ body {
 }
 
 a { color: var(--teal); }
+
+/* ---------- Navbar ---------- */
 .site-nav {
   background-color: var(--navy);
   border-bottom: 1px solid rgba(20, 184, 166, 0.2);
 }
 .accent { color: var(--teal); }
 .site-nav .nav-link:hover { color: var(--teal); }
+.site-nav .nav-link.active {
+  color: var(--teal);
+  font-weight: 600;
+}
 
+/* ---------- Hero ---------- */
 .hero {
   min-height: 90vh;           /* almost a full screen tall */
   display: flex;
@@ -43,12 +50,13 @@ a { color: var(--teal); }
 
 @media (max-width: 576px) {
   .hero-photo {
-    width: 500px;
+    width: 280px;
     height: 350px;
     border-radius: 140px 140px 16px 16px;
   }
 }
-/* Our own teal buttons */
+
+/* ---------- Buttons ---------- */
 .btn-teal {
   background-color: var(--teal);
   color: var(--navy-dark);
@@ -62,6 +70,7 @@ a { color: var(--teal); }
 }
 .btn-outline-teal:hover { background-color: var(--teal); color: var(--navy-dark); }
 
+/* ---------- Sections ---------- */
 .section {
   padding: 80px 0;
 }
@@ -74,6 +83,7 @@ a { color: var(--teal); }
   line-height: 1.8;
 }
 
+/* ---------- About ---------- */
 .info-card {
   background-color: var(--navy);
   border: 1px solid rgba(20, 184, 166, 0.2);
@@ -90,6 +100,8 @@ a { color: var(--teal); }
   margin: 4px;
   font-size: 0.9rem;
 }
+
+/* ---------- Projects ---------- */
 .project-card {
   background-color: var(--navy);
   border: 1px solid rgba(20, 184, 166, 0.2);
@@ -128,29 +140,26 @@ a { color: var(--teal); }
   margin-right: 10px;
 }
 
+/* ---------- Contact form ---------- */
 .form-label { color: var(--text); }
 
 .form-control {
-  background-color: var(--navy-dark);
+  background-color: #ffffff;
   border: 1px solid rgba(20, 184, 166, 0.3);
-  color: var(--text);
+  color: #071428;                 /* dark text so typing is readable */
 }
 .form-control:focus {
-  background-color: var(--navy-dark);
-  color: var(--text);
+  background-color: #ffffff;
+  color: #071428;
   border-color: var(--teal);
-  box-shadow: 0 0 0 0.2rem rgba(20, 184, 166, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(20, 184, 166, 0.35);
 }
 
+/* ---------- Footer ---------- */
 .footer {
   text-align: center;
   padding: 30px 0;
   border-top: 1px solid rgba(20, 184, 166, 0.2);
   color: var(--muted);
   font-size: 0.9rem;
-}
-
-.site-nav .nav-link.active {
-  color: var(--teal);
-  font-weight: 600;
 }
