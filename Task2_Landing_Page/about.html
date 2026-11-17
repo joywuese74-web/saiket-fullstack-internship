@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why JTech | JTech</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+<!-- ========== NAVBAR ========== -->
+<nav class="navbar navbar-expand-lg sticky-top jt-nav">
+  <div class="container">
+    <a class="navbar-brand jt-logo" href="index.html">J<span>Tech</span></a>
+
+    <!-- Cart button: opens the cart panel (JavaScript updates the number on every page) -->
+    <button type="button" class="cart-btn ms-auto ms-lg-3 order-lg-last" data-bs-toggle="offcanvas" data-bs-target="#cartPanel" aria-label="Open cart">
+      <i class="bi bi-bag"></i>
+      <span id="cartCount" class="cart-count">0</span>
+    </button>
+
+    <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#jtMenu" aria-label="Open menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="jtMenu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
+        <li class="nav-item"><a class="nav-link active" href="about.html">Why JTech</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ========== PAGE HEADER ========== -->
+<header class="page-header">
+  <div class="container text-center">
+    <span class="section-tag">About us</span>
+    <h1>Why shop with JTech?</h1>
+    <p>Quality gadgets, honest prices and support that stays with you after you buy.</p>
+  </div>
+</header>
+
+<!-- ========== OUR STORY ========== -->
+<section class="section">
+  <div class="container">
+    <div class="row align-items-center g-4 g-lg-5">
+      <div class="col-lg-6">
+        <img src="images/hero-main.jpg" alt="Gadgets on a desk" class="about-img">
+      </div>
+      <div class="col-lg-6">
+        <span class="section-tag">Our story</span>
+        <h2 class="about-title">Technology made easier</h2>
+        <p>JTech started with a simple idea: buying gadgets should be easy, safe and stress-free. Every device we sell is carefully tested before it reaches you, so you can shop with confidence.</p>
+        <p>From earbuds and smartwatches to laptops and drones, we bring you quality devices at fair prices, delivered fast and backed by a full year of warranty.</p>
+        <a href="products.html" class="btn btn-jt mt-2">Start shopping</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== WHY JTECH ========== -->
+<section id="why" class="section why-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-tag">Why choose us</span>
+      <h2>Shopping made simple</h2>
+      <p>Everything you need for a smooth, worry-free purchase.</p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-sm-6 col-lg-3">
+        <div class="why-card">
+          <div class="why-icon"><i class="bi bi-truck"></i></div>
+          <h3>Fast Delivery</h3>
+          <p>Orders delivered within 24 hours in major cities.</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+        <div class="why-card">
+          <div class="why-icon"><i class="bi bi-shield-check"></i></div>
+          <h3>Secure Payment</h3>
+          <p>Pay safely with card, transfer or on delivery.</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+        <div class="why-card">
+          <div class="why-icon"><i class="bi bi-arrow-repeat"></i></div>
+          <h3>Easy Returns</h3>
+          <p>Changed your mind? Return within 7 days, no stress.</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+        <div class="why-card">
+          <div class="why-icon"><i class="bi bi-headset"></i></div>
+          <h3>24/7 Support</h3>
+          <p>Our team is always here to help you choose right.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="jt-footer mt-auto">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <a class="jt-logo footer-logo" href="index.html">J<span>Tech</span></a>
+        <p>Smart gadgets for everyday life. Quality devices, fast delivery and support you can count on.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+          <a href="#" aria-label="X"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+          <a href="#" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h4>Shop</h4>
+        <a href="products.html">All Products</a>
+        <a href="products.html">New Arrivals</a>
+        <a href="products.html">Deals</a>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h4>Help</h4>
+        <a href="about.html">Delivery</a>
+        <a href="about.html">Returns</a>
+        <a href="contact.html">Support</a>
+      </div>
+      <div class="col-lg-4">
+        <h4>Contact</h4>
+        <p><i class="bi bi-geo-alt"></i> Makurdi, Benue State</p>
+        <p><i class="bi bi-envelope"></i> hello@jtech.com</p>
+        <p><i class="bi bi-telephone"></i> +234 800 000 0000</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 JTech. Built by Ayande Wuese Joy for the SaiKet Systems internship.
+    </div>
+  </div>
+</footer>
+
+<!-- ========== CART PANEL (slides in from the right) ========== -->
+<div class="offcanvas offcanvas-end cart-panel" tabindex="-1" id="cartPanel" aria-labelledby="cartPanelTitle">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="cartPanelTitle"><i class="bi bi-bag"></i> Your Cart</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+
+  <div class="offcanvas-body">
+    <!-- Shown when the cart is empty -->
+    <div id="cartEmpty" class="cart-empty">
+      <i class="bi bi-bag-x"></i>
+      <p>Your cart is empty.</p>
+      <a href="products.html" class="btn btn-jt">Browse products</a>
+    </div>
+
+    <!-- JavaScript fills this list with the products you added -->
+    <ul id="cartItems" class="cart-items"></ul>
+  </div>
+
+  <div id="cartFooter" class="cart-footer">
+    <div class="cart-total">
+      <span>Estimated total</span>
+      <strong id="cartTotal">₦0</strong>
+    </div>
+    <small class="cart-note">Based on starting prices. Final price depends on the model you choose.</small>
+    <button id="checkoutBtn" type="button" class="btn btn-jt w-100 mt-3">Checkout</button>
+    <button id="clearCartBtn" type="button" class="btn btn-link w-100 clear-cart">Clear cart</button>
+  </div>
+</div>
+
+<!-- Pop-up message shown after "Add to Cart" -->
+<div id="cartToast" class="cart-toast">
+  <i class="bi bi-check-circle-fill"></i> <span id="toastText">Added to cart</span>
+</div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

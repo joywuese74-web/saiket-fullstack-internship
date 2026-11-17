@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products | JTech</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+<!-- ========== NAVBAR ========== -->
+<nav class="navbar navbar-expand-lg sticky-top jt-nav">
+  <div class="container">
+    <a class="navbar-brand jt-logo" href="index.html">J<span>Tech</span></a>
+
+    <!-- Cart button: opens the cart panel (JavaScript updates the number on every page) -->
+    <button type="button" class="cart-btn ms-auto ms-lg-3 order-lg-last" data-bs-toggle="offcanvas" data-bs-target="#cartPanel" aria-label="Open cart">
+      <i class="bi bi-bag"></i>
+      <span id="cartCount" class="cart-count">0</span>
+    </button>
+
+    <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#jtMenu" aria-label="Open menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="jtMenu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link active" href="products.html">Products</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">Why JTech</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ========== PAGE HEADER ========== -->
+<header class="page-header">
+  <div class="container text-center">
+    <span class="section-tag">Shop</span>
+    <h1>All products</h1>
+    <p>Browse our full range of smart gadgets, from everyday essentials to pro gear.</p>
+  </div>
+</header>
+
+<!-- ========== ALL PRODUCTS ========== -->
+<section id="products" class="section">
+  <div class="container">
+    <div class="row g-4 justify-content-center">
+
+      <!-- Product 1 -->
+      <div class="col-sm-6 col-lg-4">
+        <div class="product-card">
+          <img src="images/p1.jpg" alt="Wireless earbuds" class="product-img">
+          <div class="product-body">
+            <h3>Wireless Earbuds</h3>
+            <p class="product-price">₦50,000-500,000</p>
+            <button class="btn btn-jt w-100 add-to-cart" data-name="Wireless Earbuds">
+              <i class="bi bi-bag-plus"></i> Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="col-sm-6 col-lg-4">
+        <div class="product-card">
+          <span class="product-badge new">New</span>
+          <img src="images/p2.jpg" alt="Smartwatch" class="product-img">
+          <div class="product-body">
+            <h3>Smartwatch Pro</h3>
+            <p class="product-price">₦45,000</p>
+            <button class="btn btn-jt w-100 add-to-cart" data-name="Smartwatch Pro">
+              <i class="bi bi-bag-plus"></i> Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="col-sm-6 col-lg-4">
+        <div class="product-card">
+          <img src="images/p3.jpg" alt="Power bank" class="product-img">
+          <div class="product-body">
+            <h3>20,000mAh Power Bank</h3>
+            <p class="product-price">₦18,500</p>
+            <button class="btn btn-jt w-100 add-to-cart" data-name="20,000mAh Power Bank">
+              <i class="bi bi-bag-plus"></i> Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="col-sm-6 col-lg-4">
+        <div class="product-card">
+          <span class="product-badge">-15%</span>
+          <img src="images/p4.jpg" alt="Bluetooth speaker" class="product-img">
+          <div class="product-body">
+            <h3>Bluetooth Speaker</h3>
+            <p class="product-price">₦32,000 <span class="old-price">₦37,500</span></p>
+            <button class="btn btn-jt w-100 add-to-cart" data-name="Bluetooth Speaker">
+              <i class="bi bi-bag-plus"></i> Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 5 -->
+      <div class="col-sm-6 col-lg-4">
+        <div class="product-card">
+          <img src="images/p5.jpg" alt="Wireless keyboard and mouse" class="product-img">
+          <div class="product-body">
+            <h3>Keyboard &amp; Mouse Set</h3>
+            <p class="product-price">₦22,000</p>
+            <button class="btn btn-jt w-100 add-to-cart" data-name="Keyboard & Mouse Set">
+              <i class="bi bi-bag-plus"></i> Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 6 -->
+      <div class="col-sm-6 col-lg-4">
+        <div class="product-card">
+          <span class="product-badge new">New</span>
+          <img src="images/p6.jpg" alt="Ring light" class="product-img">
+          <div class="product-body">
+            <h3>LED Ring Light</h3>
+            <p class="product-price">₦15,000-300,000</p>
+            <button class="btn btn-jt w-100 add-to-cart" data-name="LED Ring Light">
+              <i class="bi bi-bag-plus"></i> Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 7 -->
+      <div class="col-sm-6 col-lg-4">
+        <div class="product-card">
+          <span class="product-badge new">New</span>
+          <img src="images/p7.jpg" alt="Drone" class="product-img">
+          <div class="product-body">
+            <h3>Drone</h3>
+            <p class="product-price">₦1,500,000-5,000,000</p>
+            <button class="btn btn-jt w-100 add-to-cart" data-name="Drone">
+              <i class="bi bi-bag-plus"></i> Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 8 -->
+      <div class="col-sm-6 col-lg-4">
+        <div class="product-card">
+          <span class="product-badge new">New</span>
+          <img src="images/p8.jpg" alt="Camera" class="product-img">
+          <div class="product-body">
+            <h3>Camera</h3>
+            <p class="product-price">₦250,000-1,500,000</p>
+            <button class="btn btn-jt w-100 add-to-cart" data-name="Camera">
+              <i class="bi bi-bag-plus"></i> Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 9 -->
+      <div class="col-sm-6 col-lg-4">
+        <div class="product-card">
+          <span class="product-badge new">New</span>
+          <img src="images/p9.jpg" alt="Phone" class="product-img">
+          <div class="product-body">
+            <h3>Phone</h3>
+            <p class="product-price">₦780,000-3,000,000</p>
+            <button class="btn btn-jt w-100 add-to-cart" data-name="Phone">
+              <i class="bi bi-bag-plus"></i> Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 10 -->
+      <div class="col-sm-6 col-lg-4">
+        <div class="product-card">
+          <span class="product-badge new">New</span>
+          <img src="images/p10.jpg" alt="Laptop" class="product-img">
+          <div class="product-body">
+            <h3>Laptop</h3>
+            <p class="product-price">₦1,534,000-5,000,000</p>
+            <button class="btn btn-jt w-100 add-to-cart" data-name="Laptop">
+              <i class="bi bi-bag-plus"></i> Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="jt-footer mt-auto">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <a class="jt-logo footer-logo" href="index.html">J<span>Tech</span></a>
+        <p>Smart gadgets for everyday life. Quality devices, fast delivery and support you can count on.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+          <a href="#" aria-label="X"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+          <a href="#" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h4>Shop</h4>
+        <a href="products.html">All Products</a>
+        <a href="products.html">New Arrivals</a>
+        <a href="products.html">Deals</a>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h4>Help</h4>
+        <a href="about.html">Delivery</a>
+        <a href="about.html">Returns</a>
+        <a href="contact.html">Support</a>
+      </div>
+      <div class="col-lg-4">
+        <h4>Contact</h4>
+        <p><i class="bi bi-geo-alt"></i> Makurdi, Benue State</p>
+        <p><i class="bi bi-envelope"></i> hello@jtech.com</p>
+        <p><i class="bi bi-telephone"></i> +234 800 000 0000</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 JTech. Built by Ayande Wuese Joy for the SaiKet Systems internship.
+    </div>
+  </div>
+</footer>
+
+<!-- ========== CART PANEL (slides in from the right) ========== -->
+<div class="offcanvas offcanvas-end cart-panel" tabindex="-1" id="cartPanel" aria-labelledby="cartPanelTitle">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="cartPanelTitle"><i class="bi bi-bag"></i> Your Cart</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+
+  <div class="offcanvas-body">
+    <!-- Shown when the cart is empty -->
+    <div id="cartEmpty" class="cart-empty">
+      <i class="bi bi-bag-x"></i>
+      <p>Your cart is empty.</p>
+      <a href="products.html" class="btn btn-jt">Browse products</a>
+    </div>
+
+    <!-- JavaScript fills this list with the products you added -->
+    <ul id="cartItems" class="cart-items"></ul>
+  </div>
+
+  <div id="cartFooter" class="cart-footer">
+    <div class="cart-total">
+      <span>Estimated total</span>
+      <strong id="cartTotal">₦0</strong>
+    </div>
+    <small class="cart-note">Based on starting prices. Final price depends on the model you choose.</small>
+    <button id="checkoutBtn" type="button" class="btn btn-jt w-100 mt-3">Checkout</button>
+    <button id="clearCartBtn" type="button" class="btn btn-link w-100 clear-cart">Clear cart</button>
+  </div>
+</div>
+
+<!-- Pop-up message shown after "Add to Cart" -->
+<div id="cartToast" class="cart-toast">
+  <i class="bi bi-check-circle-fill"></i> <span id="toastText">Added to cart</span>
+</div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
