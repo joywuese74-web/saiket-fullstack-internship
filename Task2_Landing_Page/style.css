@@ -571,3 +571,11 @@ body {
   font-size: 0.9rem;
 }
 .clear-cart:hover { color: #b91c1c; }
+/* Phones: show only the logo, text and social icons in the footer */
+@media (max-width: 767px) {
+  .jt-footer .row > div:not(:first-child) {
+    display: none;
+  }
+  .jt-footer { padding-top: 50px; }
+  .footer-bottom { margin-top: 24px; }
+}
