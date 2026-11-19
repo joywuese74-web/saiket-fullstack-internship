@@ -1,16 +1,36 @@
-# React + Vite
+# Task 3 – React To-Do App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A to-do list app built with **React** (using Vite) for the SaiKet Systems Full Stack Development internship.
 
-Currently, two official plugins are available:
+## Features
+- **Add tasks** – with validation (empty tasks are not allowed)
+- **Edit tasks** – change a task's text, date, time or note; press Enter to save, Esc to cancel
+- **Delete tasks**
+- **Mark tasks as done** – completed tasks are crossed out
+- **Due date and time** – optional; overdue tasks are highlighted in red
+- **Short notes** – optional note on each task (up to 150 characters)
+- **Filters** – All / Active / Completed, with live counts
+- **Clear completed** – remove all finished tasks at once
+- **Saved in the browser** – tasks stay after refreshing or closing the page (`localStorage`)
+- **Responsive** – works on phones, tablets and laptops
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## React concepts used
+- **Components and JSX**
+- **`useState`** – tasks, form inputs, the task being edited, the selected filter
+- **`useEffect`** – saves tasks to `localStorage` whenever they change
+- **Controlled inputs** – form fields always match state
+- **Immutable updates** – `map`, `filter` and the spread operator (`...`) to create new arrays and objects
+- **Conditional rendering** – edit mode vs normal mode, empty-list messages, overdue labels
 
-## React Compiler
+## Built With
+React, Vite, JavaScript, CSS
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## How to Run
+```bash
+npm install
+npm run dev
+```
+Then open http://localhost:5173
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Screenshots
+See the `screenshots/` folder.
