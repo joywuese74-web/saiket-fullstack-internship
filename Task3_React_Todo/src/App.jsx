@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 // Small icons drawn with SVG (no extra library needed)
@@ -26,16 +26,35 @@ function TrashIcon() {
 
 function App() {
   // STATE
-  const [todos, setTodos] = useState([
+    // Starting tasks, used only the very first time (when nothing is saved yet)
+  const defaultTodos = [
     { id: 1, text: 'Finish SaiKet Task 3', done: false },
     { id: 2, text: 'Post on LinkedIn', done: true },
     { id: 3, text: 'Learn React state', done: false },
-  ])
+  ]
+
+  // Load saved tasks from the browser, or use the defaults
+  const [todos, setTodos] = useState(() => {
+    try {
+      const saved = localStorage.getItem('todos')
+      return saved ? JSON.parse(saved) : defaultTodos
+    } catch {
+      return defaultTodos
+    }
+  })
   const [newTask, setNewTask] = useState('')
   const [error, setError] = useState('')
   const [editingId, setEditingId] = useState(null)   // id of the task being edited (null = none)
   const [editText, setEditText] = useState('')       // text in the edit box
-
+    
+  // Save the tasks to the browser whenever "todos" changes
+  useEffect(() => {
+    try {
+      localStorage.setItem('todos', JSON.stringify(todos))
+    } catch {
+      // Storage blocked (e.g. private mode): the app still works, it just won't remember
+    }
+  }, [todos])
   // ADD a task
   function handleAdd(event) {
     event.preventDefault()
