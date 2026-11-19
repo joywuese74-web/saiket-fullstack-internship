@@ -24,14 +24,33 @@ function TrashIcon() {
   )
 }
 
+// ---------- HELPERS ----------
+
+// Turn "2026-11-21" and "15:00" into something readable, like "Sat, 21 Nov · 3:00 PM"
+function formatDue(date, time) {
+  if (!date) return ''
+  const due = new Date(date + 'T' + (time || '00:00'))
+  const day = due.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' })
+  if (!time) return day
+  const hour = due.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
+  return day + ' · ' + hour
+}
+
+// Is this task past its due date/time (and not done yet)?
+function isOverdue(todo) {
+  if (!todo.date || todo.done) return false
+  const due = new Date(todo.date + 'T' + (todo.time || '23:59'))
+  return due < new Date()
+}
+
 function App() {
   // ---------- STATE ----------
 
   // Starting tasks, used only the very first time (when nothing is saved yet)
   const defaultTodos = [
-    { id: 1, text: 'Finish SaiKet Task 3', done: false },
-    { id: 2, text: 'Post on LinkedIn', done: true },
-    { id: 3, text: 'Learn React state', done: false },
+    { id: 1, text: 'Finish SaiKet Task 3', done: false, date: '', time: '', note: 'Add, edit and delete tasks' },
+    { id: 2, text: 'Post on LinkedIn', done: true, date: '', time: '', note: '' },
+    { id: 3, text: 'Learn React state', done: false, date: '', time: '', note: '' },
   ]
 
   // Load saved tasks from the browser, or use the defaults
@@ -43,10 +62,18 @@ function App() {
       return defaultTodos
     }
   })
+
+  // The "add task" form
   const [newTask, setNewTask] = useState('')
+  const [newDate, setNewDate] = useState('')
+  const [newTime, setNewTime] = useState('')
+  const [newNote, setNewNote] = useState('')
   const [error, setError] = useState('')
+
+  // Editing: which task, and a "draft" copy of its fields while you edit
   const [editingId, setEditingId] = useState(null)   // id of the task being edited (null = none)
-  const [editText, setEditText] = useState('')       // text in the edit box
+  const [draft, setDraft] = useState({ text: '', date: '', time: '', note: '' })
+
   const [filter, setFilter] = useState('all')        // 'all', 'active' or 'completed'
 
   // Save the tasks to the browser whenever "todos" changes
@@ -69,10 +96,26 @@ function App() {
       setError('Please type a task first.')
       return
     }
+    if (newTime && !newDate) {
+      setError('Please pick a date for this time.')
+      return
+    }
 
-    const task = { id: Date.now(), text: text, done: false }
+    const task = {
+      id: Date.now(),
+      text: text,
+      done: false,
+      date: newDate,          // '' if no date was picked
+      time: newTime,          // '' if no time was picked
+      note: newNote.trim(),   // '' if no note was written
+    }
     setTodos([...todos, task])
+
+    // Clear the form
     setNewTask('')
+    setNewDate('')
+    setNewTime('')
+    setNewNote('')
     setError('')
   }
 
@@ -90,22 +133,34 @@ function App() {
     setTodos(todos.filter((todo) => todo.id !== id))
   }
 
-  // EDIT: step 1, open the edit box with the task's current text
+  // EDIT: step 1, open the edit box with the task's current details
   function startEdit(todo) {
     setEditingId(todo.id)
-    setEditText(todo.text)
+    setDraft({
+      text: todo.text,
+      date: todo.date || '',
+      time: todo.time || '',
+      note: todo.note || '',
+    })
   }
 
-  // EDIT: step 2, save the new text
+  // Update one field of the draft (text, date, time or note)
+  function updateDraft(field, value) {
+    setDraft({ ...draft, [field]: value })
+  }
+
+  // EDIT: step 2, save the changes
   function saveEdit(event) {
     event.preventDefault()
 
-    const text = editText.trim()
+    const text = draft.text.trim()
     if (text === '') return              // don't allow an empty task
 
     setTodos(
       todos.map((todo) =>
-        todo.id === editingId ? { ...todo, text: text } : todo
+        todo.id === editingId
+          ? { ...todo, text: text, date: draft.date, time: draft.date ? draft.time : '', note: draft.note.trim() }
+          : todo
       )
     )
     setEditingId(null)                   // close the edit box
@@ -142,14 +197,45 @@ function App() {
           {tasksLeft} of {todos.length} task{todos.length === 1 ? '' : 's'} left
         </p>
 
-        <form className="todo-form" onSubmit={handleAdd}>
-          <input
-            type="text"
-            placeholder="What do you need to do?"
-            value={newTask}
-            onChange={(event) => setNewTask(event.target.value)}
+        {/* ADD FORM */}
+        <form className="add-form" onSubmit={handleAdd}>
+          <div className="todo-form">
+            <input
+              type="text"
+              placeholder="What do you need to do?"
+              value={newTask}
+              onChange={(event) => setNewTask(event.target.value)}
+            />
+            <button type="submit">Add</button>
+          </div>
+
+          <div className="extra-fields">
+            <label>
+              <span>Date</span>
+              <input
+                type="date"
+                value={newDate}
+                onChange={(event) => setNewDate(event.target.value)}
+              />
+            </label>
+            <label>
+              <span>Time</span>
+              <input
+                type="time"
+                value={newTime}
+                onChange={(event) => setNewTime(event.target.value)}
+              />
+            </label>
+          </div>
+
+          <textarea
+            className="note-input"
+            rows="2"
+            maxLength="150"
+            placeholder="Short note (optional)"
+            value={newNote}
+            onChange={(event) => setNewNote(event.target.value)}
           />
-          <button type="submit">Add</button>
         </form>
         {error && <p className="error">{error}</p>}
 
@@ -186,34 +272,82 @@ function App() {
           </p>
         )}
 
+        {/* TASK LIST */}
         <ul className="todo-list">
           {visibleTodos.map((todo) =>
             todo.id === editingId ? (
-              // ----- EDIT MODE: an input with Save and Cancel -----
+              // ----- EDIT MODE: inputs with Save and Cancel -----
               <li key={todo.id} className="todo-item editing">
                 <form className="edit-form" onSubmit={saveEdit}>
                   <input
                     type="text"
-                    value={editText}
-                    onChange={(event) => setEditText(event.target.value)}
+                    className="edit-text"
+                    value={draft.text}
+                    onChange={(event) => updateDraft('text', event.target.value)}
                     onKeyDown={(event) => event.key === 'Escape' && cancelEdit()}
                     autoFocus
                   />
-                  <button type="submit" className="save-btn">Save</button>
-                  <button type="button" className="cancel-btn" onClick={cancelEdit}>
-                    Cancel
-                  </button>
+                  <div className="extra-fields">
+                    <label>
+                      <span>Date</span>
+                      <input
+                        type="date"
+                        value={draft.date}
+                        onChange={(event) => updateDraft('date', event.target.value)}
+                      />
+                    </label>
+                    <label>
+                      <span>Time</span>
+                      <input
+                        type="time"
+                        value={draft.time}
+                        onChange={(event) => updateDraft('time', event.target.value)}
+                      />
+                    </label>
+                  </div>
+                  <textarea
+                    className="note-input"
+                    rows="2"
+                    maxLength="150"
+                    placeholder="Short note (optional)"
+                    value={draft.note}
+                    onChange={(event) => updateDraft('note', event.target.value)}
+                  />
+                  <div className="edit-actions">
+                    <button type="submit" className="save-btn">Save</button>
+                    <button type="button" className="cancel-btn" onClick={cancelEdit}>
+                      Cancel
+                    </button>
+                  </div>
                 </form>
               </li>
             ) : (
-              // ----- NORMAL MODE: checkbox, text, edit and delete buttons -----
-              <li key={todo.id} className={todo.done ? 'todo-item done' : 'todo-item'}>
+              // ----- NORMAL MODE: checkbox, details, edit and delete buttons -----
+              <li
+                key={todo.id}
+                className={
+                  'todo-item' + (todo.done ? ' done' : '') + (isOverdue(todo) ? ' overdue' : '')
+                }
+              >
                 <input
                   type="checkbox"
                   checked={todo.done}
                   onChange={() => handleToggle(todo.id)}
                 />
-                <span className="todo-text">{todo.text}</span>
+
+                <div className="todo-body">
+                  <span className="todo-text">{todo.text}</span>
+
+                  {todo.date && (
+                    <span className="todo-due">
+                      📅 {formatDue(todo.date, todo.time)}
+                      {isOverdue(todo) && <strong> · Overdue</strong>}
+                    </span>
+                  )}
+
+                  {todo.note && <p className="todo-note">📝 {todo.note}</p>}
+                </div>
+
                 <button
                   className="icon-btn edit-btn"
                   onClick={() => startEdit(todo)}

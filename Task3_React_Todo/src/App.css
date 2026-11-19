@@ -77,7 +77,7 @@
 .todo-list {
   list-style: none;
   padding: 0;
-  margin: 20px 0 0;
+  margin: 16px 0 0;
 }
 
 .todo-item {
@@ -104,8 +104,15 @@
   flex-shrink: 0;
 }
 
+.todo-body {
+  flex: 1;                  /* details take the middle space */
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
 .todo-text {
-  flex: 1;                  /* text takes the middle space */
   word-break: break-word;   /* long tasks wrap instead of overflowing */
 }
 
@@ -162,18 +169,22 @@
 
 .edit-form {
   display: flex;
+  flex-direction: column;   /* text, date/time, note and buttons stacked */
   gap: 8px;
   width: 100%;
 }
 
-.edit-form input {
-  flex: 1;
-  min-width: 0;
+.edit-text {
   padding: 8px 12px;
   border: 2px solid #f59e0b;
   border-radius: 10px;
   font-size: 1rem;
   outline: none;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 8px;
 }
 
 .save-btn,
@@ -203,13 +214,83 @@
   background: #cbd5e1;
 }
 
-/* ---------- Phones ---------- */
-@media (max-width: 480px) {
-  .app { padding: 30px 12px; }
-  .todo-card { padding: 22px; }
-  .todo-card h1 { font-size: 1.6rem; }
-  .edit-form { flex-wrap: wrap; }
-  .edit-form input { flex-basis: 100%; }   /* edit box on its own line, buttons below */
+/* ---------- Date, time and note fields ---------- */
+.add-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.add-form .todo-form {
+  margin-bottom: 0;
+}
+
+.extra-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;   /* date and time side by side */
+  gap: 10px;
+}
+
+.extra-fields label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.extra-fields input,
+.note-input {
+  width: 100%;
+  padding: 9px 12px;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: #1e293b;
+  background: #ffffff;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.extra-fields input:focus,
+.note-input:focus {
+  border-color: #6366f1;
+}
+
+.note-input {
+  resize: vertical;
+}
+
+/* ---------- Due date and note on each task ---------- */
+.todo-due {
+  font-size: 0.8rem;
+  color: #6366f1;
+  font-weight: 600;
+}
+
+.todo-note {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #64748b;
+  font-style: italic;
+  word-break: break-word;
+}
+
+.todo-item.done .todo-due,
+.todo-item.done .todo-note {
+  color: #94a3b8;
+}
+
+/* Overdue tasks get a red edge and red date */
+.todo-item.overdue {
+  border-left-color: #ef4444;
+  background: #fef2f2;
+}
+
+.todo-item.overdue .todo-due {
+  color: #dc2626;
 }
 
 /* ---------- Filter buttons ---------- */
@@ -258,4 +339,12 @@
 
 .clear-btn:hover {
   background: #fee2e2;
+}
+
+/* ---------- Phones ---------- */
+@media (max-width: 480px) {
+  .app { padding: 30px 12px; }
+  .todo-card { padding: 22px; }
+  .todo-card h1 { font-size: 1.6rem; }
+  .extra-fields { grid-template-columns: 1fr; }   /* date and time stacked */
 }
