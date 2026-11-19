@@ -375,7 +375,11 @@ function App() {
             Clear completed ({completedCount})
           </button>
         )}
-      </div>
+            </div>
+
+      <footer className="app-footer">
+        Built with React by <strong>Ayande Wuese Joy</strong> · SaiKet Systems Internship
+      </footer>
     </div>
   )
 }

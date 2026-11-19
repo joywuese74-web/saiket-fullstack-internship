@@ -1,9 +1,9 @@
 .app {
   display: flex;
-  justify-content: center;
+  flex-direction: column;   /* card on top, footer below */
+  align-items: center;
   padding: 60px 16px;
 }
-
 .todo-card {
   width: 100%;
   max-width: 520px;
@@ -339,6 +339,18 @@
 
 .clear-btn:hover {
   background: #fee2e2;
+}
+
+/* ---------- Footer ---------- */
+.app-footer {
+  margin-top: 24px;
+  font-size: 0.85rem;
+  color: #64748b;
+  text-align: center;
+}
+
+.app-footer strong {
+  color: #4f46e5;
 }
 
 /* ---------- Phones ---------- */
