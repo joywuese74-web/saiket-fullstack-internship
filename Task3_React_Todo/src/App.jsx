@@ -25,8 +25,9 @@ function TrashIcon() {
 }
 
 function App() {
-  // STATE
-    // Starting tasks, used only the very first time (when nothing is saved yet)
+  // ---------- STATE ----------
+
+  // Starting tasks, used only the very first time (when nothing is saved yet)
   const defaultTodos = [
     { id: 1, text: 'Finish SaiKet Task 3', done: false },
     { id: 2, text: 'Post on LinkedIn', done: true },
@@ -46,7 +47,8 @@ function App() {
   const [error, setError] = useState('')
   const [editingId, setEditingId] = useState(null)   // id of the task being edited (null = none)
   const [editText, setEditText] = useState('')       // text in the edit box
-    
+  const [filter, setFilter] = useState('all')        // 'all', 'active' or 'completed'
+
   // Save the tasks to the browser whenever "todos" changes
   useEffect(() => {
     try {
@@ -55,6 +57,9 @@ function App() {
       // Storage blocked (e.g. private mode): the app still works, it just won't remember
     }
   }, [todos])
+
+  // ---------- ACTIONS ----------
+
   // ADD a task
   function handleAdd(event) {
     event.preventDefault()
@@ -111,9 +116,24 @@ function App() {
     setEditingId(null)
   }
 
-  const tasksLeft = todos.filter((todo) => !todo.done).length
+  // CLEAR COMPLETED: keep only the tasks that are not done
+  function clearCompleted() {
+    setTodos(todos.filter((todo) => !todo.done))
+  }
 
-  // WHAT TO SHOW
+  // ---------- CALCULATED VALUES ----------
+
+  const tasksLeft = todos.filter((todo) => !todo.done).length
+  const completedCount = todos.length - tasksLeft
+
+  // Which tasks to SHOW, depending on the selected filter
+  const visibleTodos = todos.filter((todo) => {
+    if (filter === 'active') return !todo.done
+    if (filter === 'completed') return todo.done
+    return true                                      // 'all'
+  })
+
+  // ---------- WHAT TO SHOW ----------
   return (
     <div className="app">
       <div className="todo-card">
@@ -133,12 +153,41 @@ function App() {
         </form>
         {error && <p className="error">{error}</p>}
 
+        {/* FILTER BUTTONS */}
+        {todos.length > 0 && (
+          <div className="filters">
+            <button
+              className={filter === 'all' ? 'filter-btn active' : 'filter-btn'}
+              onClick={() => setFilter('all')}
+            >
+              All ({todos.length})
+            </button>
+            <button
+              className={filter === 'active' ? 'filter-btn active' : 'filter-btn'}
+              onClick={() => setFilter('active')}
+            >
+              Active ({tasksLeft})
+            </button>
+            <button
+              className={filter === 'completed' ? 'filter-btn active' : 'filter-btn'}
+              onClick={() => setFilter('completed')}
+            >
+              Completed ({completedCount})
+            </button>
+          </div>
+        )}
+
         {todos.length === 0 && (
           <p className="empty">🎉 Nothing to do. Add a task above!</p>
         )}
+        {todos.length > 0 && visibleTodos.length === 0 && (
+          <p className="empty">
+            {filter === 'active' ? 'All done! 🎉' : 'No completed tasks yet.'}
+          </p>
+        )}
 
         <ul className="todo-list">
-          {todos.map((todo) =>
+          {visibleTodos.map((todo) =>
             todo.id === editingId ? (
               // ----- EDIT MODE: an input with Save and Cancel -----
               <li key={todo.id} className="todo-item editing">
@@ -185,6 +234,13 @@ function App() {
             )
           )}
         </ul>
+
+        {/* CLEAR COMPLETED */}
+        {completedCount > 0 && (
+          <button className="clear-btn" onClick={clearCompleted}>
+            Clear completed ({completedCount})
+          </button>
+        )}
       </div>
     </div>
   )

@@ -211,3 +211,51 @@
   .edit-form { flex-wrap: wrap; }
   .edit-form input { flex-basis: 100%; }   /* edit box on its own line, buttons below */
 }
+
+/* ---------- Filter buttons ---------- */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.filter-btn {
+  border: 2px solid #e2e8f0;
+  background: #ffffff;
+  color: #475569;
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover {
+  border-color: #6366f1;
+  color: #4f46e5;
+}
+
+.filter-btn.active {
+  background: #6366f1;
+  border-color: #6366f1;
+  color: #ffffff;
+}
+
+/* ---------- Clear completed ---------- */
+.clear-btn {
+  display: block;
+  margin: 10px auto 0;
+  border: none;
+  background: none;
+  color: #ef4444;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
+.clear-btn:hover {
+  background: #fee2e2;
+}
