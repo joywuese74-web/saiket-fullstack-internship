@@ -9,39 +9,37 @@ const PORT = 3000
 app.use(express.json())
 
 // 3. DATA STORE: a JSON file (users.json) next to this file
-//    The file holds the users AND the next id, so ids are never reused,
-//    even after the server restarts. In Task 5 we'll switch to PostgreSQL.
+//    In Task 5 we'll switch to PostgreSQL.
 const DATA_FILE = path.join(__dirname, 'users.json')
 
 // Read users.json. If it doesn't exist yet, create it with two sample users.
-function loadData() {
+function loadUsers() {
   if (!fs.existsSync(DATA_FILE)) {
-    const starter = {
-      nextId: 3,
-      users: [
-        { id: 1, name: 'Ada Okafor', email: 'ada@example.com', age: 25 },
-        { id: 2, name: 'Grace Adah', email: 'grace@example.com', age: 30 },
-      ],
-    }
-    fs.writeFileSync(DATA_FILE, JSON.stringify(starter, null, 2))
+    const starter = [
+      { id: 1, name: 'Ada Okafor', email: 'ada@example.com', age: 25 },
+      { id: 2, name: 'Grace Adah', email: 'grace@example.com', age: 30 },
+    ]
+    fs.writeFileSync(DATA_FILE, JSON.stringify({ users: starter }, null, 2))
     return starter
   }
 
   const data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'))
-
-  // Safety net: if nextId is missing, work it out from the highest id
-  if (!Number.isInteger(data.nextId)) {
-    data.nextId = data.users.length > 0 ? Math.max(...data.users.map((u) => u.id)) + 1 : 1
-  }
-  return data
+  return data.users || []
 }
 
-// Write the current users and next id back to users.json
-function saveData() {
-  fs.writeFileSync(DATA_FILE, JSON.stringify({ nextId, users }, null, 2))
+// Write the current users back to users.json
+function saveUsers() {
+  fs.writeFileSync(DATA_FILE, JSON.stringify({ users }, null, 2))
 }
 
-let { nextId, users } = loadData()
+// The next id = the highest id currently in the file + 1 (or 1 if there are no users)
+function getNextId() {
+  if (users.length === 0) return 1
+  const ids = users.map((u) => u.id)
+  return Math.max(...ids) + 1
+}
+
+let users = loadUsers()
 
 // 4. VALIDATION: check a user's details, return a list of problems ([] = all good)
 function validateUser(user, currentId = null) {
@@ -101,10 +99,9 @@ app.post('/api/users', (req, res) => {
     return res.status(400).json({ errors })
   }
 
-  const newUser = { id: nextId, name: name.trim(), email: email.trim(), age }
-  nextId++
+  const newUser = { id: getNextId(), name: name.trim(), email: email.trim(), age }
   users.push(newUser)
-  saveData()
+  saveUsers()
 
   res.status(201).json(newUser)   // 201 = "Created"
 })
@@ -119,7 +116,16 @@ app.put('/api/users/:id', (req, res) => {
   }
 
   // Start from the current details and replace only what was sent
+    // Start from the current details and replace only what was sent
   const body = req.body || {}
+  console.log('PUT body received:', body)   // shows in the terminal what Postman sent
+
+  // Nothing to update? Tell the client instead of pretending it worked
+  if (body.name === undefined && body.email === undefined && body.age === undefined) {
+    return res.status(400).json({
+      error: 'Send at least one of: name, email or age (as JSON).',
+    })
+  }
   const updated = {
     ...user,
     ...(body.name !== undefined && { name: body.name }),
@@ -135,7 +141,7 @@ app.put('/api/users/:id', (req, res) => {
   updated.name = updated.name.trim()
   updated.email = updated.email.trim()
   users = users.map((u) => (u.id === id ? updated : u))
-  saveData()
+  saveUsers()
 
   res.json(updated)
 })
@@ -150,7 +156,7 @@ app.delete('/api/users/:id', (req, res) => {
   }
 
   users = users.filter((u) => u.id !== id)
-  saveData()
+  saveUsers()
   res.json({ message: `User ${id} deleted.`, user })
 })
 

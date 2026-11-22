@@ -1,17 +1,16 @@
 {
-  "nextId": 3,
   "users": [
-    {
-      "id": 1,
-      "name": "Ada Okafor",
-      "email": "ada@example.com",
-      "age": 25
-    },
     {
       "id": 2,
       "name": "Grace Adah",
       "email": "grace@example.com",
       "age": 30
+    },
+    {
+      "id": 4,
+      "name": "joy",
+      "email": "joy@example.com",
+      "age": 28
     }
   ]
 }
