@@ -1,19 +1,47 @@
-// 1. Load Express and create the app
+// 1. Load Express and Node's built-in file tools, then create the app
 const express = require('express')
+const fs = require('fs')        // read and write files
+const path = require('path')    // build file paths that work on any computer
 const app = express()
 const PORT = 3000
 
 // 2. Let the server read JSON sent in requests (needed for POST and PUT)
 app.use(express.json())
 
-// 3. TEMPORARY DATA STORE
-//    For now, users live in this array (in the server's memory).
-//    They reset when the server restarts. In Task 5 we'll use a real database.
-let users = [
-  { id: 1, name: 'Ada Okafor', email: 'ada@example.com', age: 25 },
-  { id: 2, name: 'Grace Adah', email: 'grace@example.com', age: 30 },
-]
-let nextId = 3   // the id the next new user will get
+// 3. DATA STORE: a JSON file (users.json) next to this file
+//    The file holds the users AND the next id, so ids are never reused,
+//    even after the server restarts. In Task 5 we'll switch to PostgreSQL.
+const DATA_FILE = path.join(__dirname, 'users.json')
+
+// Read users.json. If it doesn't exist yet, create it with two sample users.
+function loadData() {
+  if (!fs.existsSync(DATA_FILE)) {
+    const starter = {
+      nextId: 3,
+      users: [
+        { id: 1, name: 'Ada Okafor', email: 'ada@example.com', age: 25 },
+        { id: 2, name: 'Grace Adah', email: 'grace@example.com', age: 30 },
+      ],
+    }
+    fs.writeFileSync(DATA_FILE, JSON.stringify(starter, null, 2))
+    return starter
+  }
+
+  const data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'))
+
+  // Safety net: if nextId is missing, work it out from the highest id
+  if (!Number.isInteger(data.nextId)) {
+    data.nextId = data.users.length > 0 ? Math.max(...data.users.map((u) => u.id)) + 1 : 1
+  }
+  return data
+}
+
+// Write the current users and next id back to users.json
+function saveData() {
+  fs.writeFileSync(DATA_FILE, JSON.stringify({ nextId, users }, null, 2))
+}
+
+let { nextId, users } = loadData()
 
 // 4. VALIDATION: check a user's details, return a list of problems ([] = all good)
 function validateUser(user, currentId = null) {
@@ -76,6 +104,7 @@ app.post('/api/users', (req, res) => {
   const newUser = { id: nextId, name: name.trim(), email: email.trim(), age }
   nextId++
   users.push(newUser)
+  saveData()
 
   res.status(201).json(newUser)   // 201 = "Created"
 })
@@ -106,6 +135,7 @@ app.put('/api/users/:id', (req, res) => {
   updated.name = updated.name.trim()
   updated.email = updated.email.trim()
   users = users.map((u) => (u.id === id ? updated : u))
+  saveData()
 
   res.json(updated)
 })
@@ -120,6 +150,7 @@ app.delete('/api/users/:id', (req, res) => {
   }
 
   users = users.filter((u) => u.id !== id)
+  saveData()
   res.json({ message: `User ${id} deleted.`, user })
 })
 
