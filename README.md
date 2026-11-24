@@ -9,5 +9,5 @@
 | 2 | Responsive E-commerce Landing Page | done |
 | 3 | React To-Do App | done |
 | 4 | REST API (Node.js + Express) | done |
-| 5 | Database Integration (PostgreSQL) | ⏳ |
+| 5 | Database Integration (PostgreSQL) | done |
 | 6 | Full Stack User Management System | ⏳ |
