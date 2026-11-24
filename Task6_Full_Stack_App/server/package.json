@@ -1,5 +1,5 @@
 {
-  "name": "task5_database",
+  "name": "task6_server",
   "version": "1.0.0",
   "description": "SaiKet Users API connected to PostgreSQL (Neon)",
   "main": "index.js",
