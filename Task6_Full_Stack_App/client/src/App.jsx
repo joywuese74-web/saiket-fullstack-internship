@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import UserTable from './components/UserTable'
+import UserForm from './components/UserForm'
 import './App.css'
 
 function App() {
@@ -25,6 +26,30 @@ function App() {
   function showMessage(type, text) {
     setMessage({ type, text })
     setTimeout(() => setMessage(null), 4000)   // hide after 4 seconds
+  }
+
+  // ---------- ADD ----------
+  // Sends the new user to the API. Returns a list of errors ([] = success).
+  async function handleAdd(userData) {
+    try {
+      const response = await fetch('/api/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },   // like choosing "JSON" in Postman
+        body: JSON.stringify(userData),
+      })
+      const data = await response.json()
+
+      if (!response.ok) {
+        // The API sends either { errors: [...] } or { error: '...' }
+        return data.errors || [data.error || 'Could not add the user.']
+      }
+
+      setUsers([...users, data])   // add the new user (with its database id) to the table
+      showMessage('success', `${data.name} was added.`)
+      return []
+    } catch {
+      return ['Could not reach the server. Is it running?']
+    }
   }
 
   // ---------- DELETE ----------
@@ -59,6 +84,11 @@ function App() {
       </header>
 
       {message && <div className={`alert alert-${message.type}`}>{message.text}</div>}
+
+      <section className="card">
+        <h2>Add a user</h2>
+        <UserForm onSave={handleAdd} />
+      </section>
 
       <section className="card">
         <h2>All users</h2>
