@@ -1,29 +1,75 @@
 import { useState, useEffect } from 'react'
+import UserTable from './components/UserTable'
+import './App.css'
 
 function App() {
+  // ---------- STATE ----------
   const [users, setUsers] = useState([])
-  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(true)
+  const [loadError, setLoadError] = useState('')
+  const [message, setMessage] = useState(null)   // { type: 'success' | 'error', text: '...' }
 
-  // Runs once when the page opens: ask the API for all users
+  // ---------- LOAD USERS FROM THE API (once, when the page opens) ----------
   useEffect(() => {
     fetch('/api/users')
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) throw new Error()
+        return response.json()
+      })
       .then((data) => setUsers(data))
-      .catch(() => setError('Could not reach the server. Is it running?'))
+      .catch(() => setLoadError('Could not load users. Is the server running?'))
+      .finally(() => setLoading(false))
   }, [])
 
-  return (
-    <div style={{ padding: '40px', fontFamily: 'sans-serif' }}>
-      <h1>User Management System</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+  // ---------- MESSAGES ----------
+  function showMessage(type, text) {
+    setMessage({ type, text })
+    setTimeout(() => setMessage(null), 4000)   // hide after 4 seconds
+  }
 
-      <ul>
-        {users.map((user) => (
-          <li key={user.id}>
-            {user.name} – {user.email} – age {user.age}
-          </li>
-        ))}
-      </ul>
+  // ---------- DELETE ----------
+  async function handleDelete(user) {
+    const sure = window.confirm(`Delete ${user.name}? This cannot be undone.`)
+    if (!sure) return
+
+    try {
+      const response = await fetch(`/api/users/${user.id}`, { method: 'DELETE' })
+      if (!response.ok) throw new Error()
+
+      // Remove the user from the list on the page (no need to reload everything)
+      setUsers(users.filter((u) => u.id !== user.id))
+      showMessage('success', `${user.name} was deleted.`)
+    } catch {
+      showMessage('error', `Could not delete ${user.name}. Please try again.`)
+    }
+  }
+
+  // ---------- WHAT TO SHOW ----------
+  return (
+    <div className="page">
+      <header className="page-header">
+        <div>
+          <h1>User Management System</h1>
+          <p className="subtitle">React · Express · PostgreSQL</p>
+        </div>
+        <div className="stat">
+          <span className="stat-number">{users.length}</span>
+          <span className="stat-label">user{users.length === 1 ? '' : 's'}</span>
+        </div>
+      </header>
+
+      {message && <div className={`alert alert-${message.type}`}>{message.text}</div>}
+
+      <section className="card">
+        <h2>All users</h2>
+        {loading && <p className="empty">Loading users…</p>}
+        {loadError && <p className="alert alert-error">{loadError}</p>}
+        {!loading && !loadError && <UserTable users={users} onDelete={handleDelete} />}
+      </section>
+
+      <footer className="page-footer">
+        Built by Ayande Wuese Joy · SaiKet Systems Internship
+      </footer>
     </div>
   )
 }
