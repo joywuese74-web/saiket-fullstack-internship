@@ -108,6 +108,7 @@
   padding: 12px;
   border-bottom: 1px solid #f1f5f9;
   vertical-align: middle;
+  white-space: nowrap;       /* one line per cell; the table scrolls on small screens */
 }
 
 .user-table tbody tr:hover {
@@ -153,7 +154,30 @@
   font-weight: 600;
   font-size: 0.9rem;
   cursor: pointer;
+  white-space: nowrap;       /* keep button text on one line */
   transition: background 0.2s;
+}
+
+.btn-edit {
+  background: #e0e7ff;
+  color: #4338ca;
+  margin-right: 8px;
+}
+
+.btn-edit:hover {
+  background: #4f46e5;
+  color: #ffffff;
+}
+
+.btn-secondary {
+  background: #e2e8f0;
+  color: #475569;
+  padding: 11px 18px;
+  font-size: 1rem;
+}
+
+.btn-secondary:hover {
+  background: #cbd5e1;
 }
 
 .btn-delete {
@@ -169,7 +193,7 @@
 /* ---------- Form ---------- */
 .form-grid {
   display: grid;
-  grid-template-columns: 2fr 2fr 1fr auto;   /* name, email, age, button on one row */
+  grid-template-columns: minmax(0, 2fr) minmax(0, 2fr) minmax(0, 1fr) auto;   /* name, email, age, buttons on one row */
   gap: 12px;
   align-items: end;
 }
@@ -213,6 +237,20 @@
   cursor: not-allowed;
 }
 
+.form-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+/* Edit mode: amber border on the form card and the row being edited */
+.card-editing {
+  border: 2px solid #f59e0b;
+}
+
+.user-table tbody tr.row-editing {
+  background: #fffbeb;
+}
+
 /* Error list under the form */
 .form-errors {
   margin: 14px 0 0;
@@ -225,6 +263,7 @@
 .form-errors li {
   margin: 3px 0;
 }
+
 /* ---------- Footer ---------- */
 .page-footer {
   text-align: center;
@@ -237,4 +276,5 @@
   .page-header h1 { font-size: 1.5rem; }
   .card { padding: 16px; }
   .form-grid { grid-template-columns: 1fr; }   /* stack the form fields */
+  .form-buttons .btn { flex: 1; }               /* buttons share the full width */
 }

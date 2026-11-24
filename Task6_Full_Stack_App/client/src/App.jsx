@@ -9,6 +9,7 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [loadError, setLoadError] = useState('')
   const [message, setMessage] = useState(null)   // { type: 'success' | 'error', text: '...' }
+  const [editingUser, setEditingUser] = useState(null)   // the user being edited (null = adding)
 
   // ---------- LOAD USERS FROM THE API (once, when the page opens) ----------
   useEffect(() => {
@@ -28,28 +29,46 @@ function App() {
     setTimeout(() => setMessage(null), 4000)   // hide after 4 seconds
   }
 
-  // ---------- ADD ----------
-  // Sends the new user to the API. Returns a list of errors ([] = success).
-  async function handleAdd(userData) {
+  // ---------- ADD or UPDATE ----------
+  // Sends the user to the API. Returns a list of errors ([] = success).
+  async function handleSave(userData) {
+    const isEditing = editingUser !== null
+
     try {
-      const response = await fetch('/api/users', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },   // like choosing "JSON" in Postman
-        body: JSON.stringify(userData),
-      })
+      const response = await fetch(
+        isEditing ? `/api/users/${editingUser.id}` : '/api/users',
+        {
+          method: isEditing ? 'PUT' : 'POST',
+          headers: { 'Content-Type': 'application/json' },   // like choosing "JSON" in Postman
+          body: JSON.stringify(userData),
+        }
+      )
       const data = await response.json()
 
       if (!response.ok) {
         // The API sends either { errors: [...] } or { error: '...' }
-        return data.errors || [data.error || 'Could not add the user.']
+        return data.errors || [data.error || 'Could not save the user.']
       }
 
-      setUsers([...users, data])   // add the new user (with its database id) to the table
-      showMessage('success', `${data.name} was added.`)
+      if (isEditing) {
+        // Replace the old version of this user with the updated one
+        setUsers(users.map((u) => (u.id === data.id ? data : u)))
+        setEditingUser(null)
+        showMessage('success', `${data.name} was updated.`)
+      } else {
+        setUsers([...users, data])   // add the new user (with its database id) to the table
+        showMessage('success', `${data.name} was added.`)
+      }
       return []
     } catch {
       return ['Could not reach the server. Is it running?']
     }
+  }
+
+  // ---------- EDIT ----------
+  function handleEdit(user) {
+    setEditingUser(user)
+    window.scrollTo({ top: 0, behavior: 'smooth' })   // bring the form into view
   }
 
   // ---------- DELETE ----------
@@ -63,6 +82,7 @@ function App() {
 
       // Remove the user from the list on the page (no need to reload everything)
       setUsers(users.filter((u) => u.id !== user.id))
+      if (editingUser && editingUser.id === user.id) setEditingUser(null)   // stop editing a deleted user
       showMessage('success', `${user.name} was deleted.`)
     } catch {
       showMessage('error', `Could not delete ${user.name}. Please try again.`)
@@ -85,16 +105,28 @@ function App() {
 
       {message && <div className={`alert alert-${message.type}`}>{message.text}</div>}
 
-      <section className="card">
-        <h2>Add a user</h2>
-        <UserForm onSave={handleAdd} />
+      <section className={editingUser ? 'card card-editing' : 'card'}>
+        <h2>{editingUser ? `Edit ${editingUser.name}` : 'Add a user'}</h2>
+        <UserForm
+          key={editingUser ? editingUser.id : 'new'}
+          editingUser={editingUser}
+          onSave={handleSave}
+          onCancel={() => setEditingUser(null)}
+        />
       </section>
 
       <section className="card">
         <h2>All users</h2>
         {loading && <p className="empty">Loading users…</p>}
         {loadError && <p className="alert alert-error">{loadError}</p>}
-        {!loading && !loadError && <UserTable users={users} onDelete={handleDelete} />}
+        {!loading && !loadError && (
+          <UserTable
+            users={users}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+            editingId={editingUser ? editingUser.id : null}
+          />
+        )}
       </section>
 
       <footer className="page-footer">

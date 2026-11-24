@@ -1,13 +1,21 @@
 import { useState } from 'react'
 
-// A form for adding a user.
-// App gives it an onSave function; onSave sends the data to the API and
-// returns a list of error messages ([] means it worked).
+// One form for both ADDING and EDITING a user.
+// - onSave sends the data to the API and returns a list of errors ([] means it worked).
+// - editingUser is the user being edited, or null when adding a new one.
+// - onCancel is called when the Cancel button is clicked (edit mode only).
 
 const emptyForm = { name: '', email: '', age: '' }
 
-function UserForm({ onSave }) {
-  const [form, setForm] = useState(emptyForm)
+function UserForm({ onSave, editingUser, onCancel }) {
+  // Start with the user's details when editing, or empty boxes when adding.
+  // (App gives this form a new "key" whenever editingUser changes, so React
+  //  starts it fresh with the right values.)
+  const [form, setForm] = useState(
+    editingUser
+      ? { name: editingUser.name, email: editingUser.email, age: String(editingUser.age) }
+      : emptyForm
+  )
   const [errors, setErrors] = useState([])
   const [saving, setSaving] = useState(false)
 
@@ -76,9 +84,16 @@ function UserForm({ onSave }) {
           />
         </label>
 
-        <button type="submit" className="btn btn-primary" disabled={saving}>
-          {saving ? 'Saving…' : 'Add user'}
-        </button>
+        <div className="form-buttons">
+          <button type="submit" className="btn btn-primary" disabled={saving}>
+            {saving ? 'Saving…' : editingUser ? 'Save changes' : 'Add user'}
+          </button>
+          {editingUser && (
+            <button type="button" className="btn btn-secondary" onClick={onCancel}>
+              Cancel
+            </button>
+          )}
+        </div>
       </div>
 
       {errors.length > 0 && (

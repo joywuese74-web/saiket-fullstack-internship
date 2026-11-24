@@ -1,4 +1,4 @@
-// Shows all users in a table, with a Delete button on each row.
+// Shows all users in a table, with Edit and Delete buttons on each row.
 // It doesn't fetch anything itself: App gives it the users and a function to call.
 
 // Turn "2026-11-24T09:00:00.000Z" into "24 Nov 2026"
@@ -11,7 +11,7 @@ function formatDate(isoDate) {
   })
 }
 
-function UserTable({ users, onDelete }) {
+function UserTable({ users, onEdit, onDelete, editingId }) {
   if (users.length === 0) {
     return <p className="empty">No users yet. Add the first one!</p>
   }
@@ -31,7 +31,7 @@ function UserTable({ users, onDelete }) {
         </thead>
         <tbody>
           {users.map((user) => (
-            <tr key={user.id}>
+            <tr key={user.id} className={user.id === editingId ? 'row-editing' : ''}>
               <td className="muted">{user.id}</td>
               <td>
                 <div className="name-cell">
@@ -43,6 +43,9 @@ function UserTable({ users, onDelete }) {
               <td>{user.age}</td>
               <td className="muted">{formatDate(user.created_at)}</td>
               <td className="actions-col">
+                <button className="btn btn-edit" onClick={() => onEdit(user)}>
+                  Edit
+                </button>
                 <button className="btn btn-delete" onClick={() => onDelete(user)}>
                   Delete
                 </button>
