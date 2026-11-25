@@ -1,0 +1,12 @@
+{
+  "name": "saiket-fullstack-internship",
+  "private": true,
+  "description": "All six SaiKet Systems internship projects on one live site (Vercel)",
+  "scripts": {
+    "build": "bash build.sh"
+  },
+  "dependencies": {
+    "express": "^5.3.0",
+    "pg": "^8.23.1"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "framework": null,
+  "installCommand": "npm install",
+  "buildCommand": "bash build.sh",
+  "outputDirectory": "dist",
+  "functions": {
+    "api/task4.js": { "includeFiles": "Task4_REST_API/users.json" }
+  },
+  "rewrites": [
+    { "source": "/task4", "destination": "/api/task4" },
+    { "source": "/task4/:path*", "destination": "/api/task4" },
+    { "source": "/task5", "destination": "/api/task5" },
+    { "source": "/task5/:path*", "destination": "/api/task5" },
+    { "source": "/api/users", "destination": "/api/task6" },
+    { "source": "/api/users/:path*", "destination": "/api/task6" }
+  ]
+}

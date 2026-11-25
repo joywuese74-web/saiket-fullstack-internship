@@ -161,7 +161,12 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Something went wrong on the server. Please try again.' })
 })
 
-// 6. Start the server
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`)
-})
+// 6. Start the server (only when I run "node index.js" myself;
+//    on Vercel, Vercel starts the app itself using the export below)
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`)
+  })
+}
+
+module.exports = app

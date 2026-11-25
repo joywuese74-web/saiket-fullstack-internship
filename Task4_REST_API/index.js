@@ -10,7 +10,14 @@ app.use(express.json())
 
 // 3. DATA STORE: a JSON file (users.json) next to this file
 //    In Task 5 we'll switch to PostgreSQL.
-const DATA_FILE = path.join(__dirname, 'users.json')
+const DATA_FILE = process.env.VERCEL
+  ? '/tmp/users.json'                        // on Vercel: a temporary copy (project files are read-only there)
+  : path.join(__dirname, 'users.json')       // on my computer: the real file
+
+// On Vercel, start the temporary copy from the users.json in the repo
+if (process.env.VERCEL && !fs.existsSync(DATA_FILE)) {
+  fs.copyFileSync(path.join(__dirname, 'users.json'), DATA_FILE)
+}
 
 // Read users.json. If it doesn't exist yet, create it with two sample users.
 function loadUsers() {
@@ -165,7 +172,12 @@ app.use((req, res) => {
   res.status(404).json({ error: 'Route not found.' })
 })
 
-// 6. Start the server
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`)
-})
+// 6. Start the server (only when I run "node index.js" myself;
+//    on Vercel, Vercel starts the app itself using the export below)
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`)
+  })
+}
+
+module.exports = app
